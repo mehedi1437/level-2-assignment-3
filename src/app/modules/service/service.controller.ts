@@ -16,6 +16,11 @@ const createService = catchAsync(async (req, res) => {
 const getSingleService = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await serviceServices.getSingleServiceFromDB(id);
+  if (!result) {
+    return res
+      .status(httpStatus.NOT_FOUND)
+      .json({ success: false, message: "Service not found" });
+  }
 
   sendResponse(res, {
     success: true,
@@ -26,6 +31,14 @@ const getSingleService = catchAsync(async (req, res) => {
 });
 const getAllService = catchAsync(async (req, res) => {
   const result = await serviceServices.getAllServiceFromDB();
+  if (result.length < 1) {
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.NOT_FOUND,
+      message: "Service not Found",
+      data: result,
+    });
+  }
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -41,6 +54,17 @@ const updateService = catchAsync(async (req, res) => {
     success: true,
     statusCode: httpStatus.OK,
     message: "Service is created succesfully",
+    data: result,
+  });
+});
+const deleteService = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await serviceServices.deleteServiceFromDB(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Service deleted successfully",
     data: result,
   });
 });
@@ -67,5 +91,6 @@ export const serviceController = {
   getSingleService,
   getAllService,
   updateService,
-  createSlot
+  createSlot,
+  deleteService
 };

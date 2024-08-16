@@ -14,22 +14,25 @@ router.post(
   serviceController.createService
 );
 
-router.get(
+router.get("/:id", serviceController.getSingleService);
+router.get("/", serviceController.getAllService);
+router.put(
   "/:id",
-  serviceController.getSingleService
+  auth(USER_ROLE.admin),
+  validateRequest(serviceValidation.updateServiceValidationSchema),
+  serviceController.updateService
 );
-router.get(
-  "/",
-  serviceController.getAllService
+router.delete(
+  "/:id",
+  auth(USER_ROLE.admin),
+  serviceController.deleteService
 );
-router.patch(
-    '/:id',auth(USER_ROLE.admin),
-    validateRequest(
-        serviceValidation.updateServiceValidationSchema,
-    ),
-    serviceController.updateService,
-  );
-  // ! slot create route
-  router.post("/slots",auth(USER_ROLE.admin), validateRequest(SlotValidation.createSlotValidationSchemaSchema), serviceController.createSlot);
+// ! slot create route
+router.post(
+  "/slots",
+  auth(USER_ROLE.admin),
+  validateRequest(SlotValidation.createSlotValidationSchemaSchema),
+  serviceController.createSlot
+);
 
 export const ServiceRoutes = router;

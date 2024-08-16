@@ -32,7 +32,7 @@ const loginUser = async (payload: TUser) => {
   const jwtPayload = {
     email: existingUser.email,
     role: existingUser.role,
-    _id:existingUser._id
+    _id: existingUser._id,
   };
   const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
     expiresIn: "10d",

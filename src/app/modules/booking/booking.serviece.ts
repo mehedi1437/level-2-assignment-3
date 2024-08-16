@@ -30,8 +30,18 @@ const getAllBookingsFromDB = async () => {
 
   return result;
 };
+const getUserBookingsFromDB = async(userId:string)=>{
+    const result = await Booking.find({ customer: userId })
+    .populate("customer")
+    .populate("serviceId") 
+    .populate("slotId") 
+    .exec();
+
+  return result;
+}
 
 export const bookingService = {
   createBookingIntoDB,
   getAllBookingsFromDB,
+  getUserBookingsFromDB
 };

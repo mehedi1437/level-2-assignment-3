@@ -22,8 +22,23 @@ const updateServiceIntoDB = async (id: string, payload: Partial<TService>) => {
   });
   return result;
 };
+const deleteServiceFromDB = async (id: string) => {
+  const service = await Service.findById(id);
 
-// ! create slot 
+  if (!service) {
+    throw new Error("Service not found");
+  }
+  const result = await Service.findOneAndUpdate(
+    { _id: id },
+    { isDeleted: true },
+    {
+      new: true,
+    }
+  );
+  return result;
+};
+
+// ! create slot
 const createSlotIntoDB = async ({
   service,
   date,
@@ -60,8 +75,6 @@ const createSlotIntoDB = async ({
       endTime: formattedEndTime,
       isBooked: "available",
     });
-
-
     slots.push(slot);
   }
   return slots;
@@ -72,5 +85,6 @@ export const serviceServices = {
   getSingleServiceFromDB,
   getAllServiceFromDB,
   updateServiceIntoDB,
-  createSlotIntoDB
+  createSlotIntoDB,
+  deleteServiceFromDB
 };
