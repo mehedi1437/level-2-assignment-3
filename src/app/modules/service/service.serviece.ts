@@ -61,9 +61,9 @@ const createSlotIntoDB = async ({
       isBooked: "available",
     });
 
+
     slots.push(slot);
   }
-
   return slots;
 };
 
