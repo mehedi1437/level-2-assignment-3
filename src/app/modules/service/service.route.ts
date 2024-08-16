@@ -22,11 +22,7 @@ router.put(
   validateRequest(serviceValidation.updateServiceValidationSchema),
   serviceController.updateService
 );
-router.delete(
-  "/:id",
-  auth(USER_ROLE.admin),
-  serviceController.deleteService
-);
+router.delete("/:id", auth(USER_ROLE.admin), serviceController.deleteService);
 // ! slot create route
 router.post(
   "/slots",
