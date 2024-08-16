@@ -2,6 +2,7 @@ import express from "express";
 import validateRequest from "../../middlewares/validateRequest";
 import { serviceValidation } from "./service.validation";
 import { serviceController } from "./service.controller";
+import { SlotValidation } from "../slot/slot.validation";
 const router = express.Router();
 
 router.post(
@@ -25,5 +26,7 @@ router.patch(
     ),
     serviceController.updateService,
   );
+  // ! slot create route
+  router.post("/slots", validateRequest(SlotValidation.createSlotValidationSchemaSchema), serviceController.createSlot);
 
 export const ServiceRoutes = router;

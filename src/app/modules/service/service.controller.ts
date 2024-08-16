@@ -45,9 +45,28 @@ const updateService = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+// ! create slot controller
+const createSlot = catchAsync(async (req, res) => {
+  const { service, date, startTime, endTime } = req.body;
+  const result = await serviceServices.createSlotIntoDB({
+    service,
+    date,
+    startTime,
+    endTime,
+  });
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Slots created successfully",
+    data: result,
+  });
+});
 export const serviceController = {
   createService,
   getSingleService,
   getAllService,
   updateService,
+  createSlot
 };

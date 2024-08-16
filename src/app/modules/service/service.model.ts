@@ -9,4 +9,4 @@ const serviceSchema = new Schema<TService>({
   isDeleted: { type: Boolean, default: false },
 }, { timestamps: true });
 
-export const Service = model<TService>('Service', serviceSchema);
+export const Service = model<TService>('service', serviceSchema);
