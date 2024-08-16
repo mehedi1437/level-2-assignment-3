@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { User } from "./user.model";
+
+import { User } from "../auth/auth.model";
+
 
 const getUserById = async (userId: string) => {
   const result = await User.findById(userId);

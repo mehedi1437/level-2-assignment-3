@@ -9,4 +9,4 @@ const serviceSchema = new mongoose_1.Schema({
     duration: { type: Number, required: true },
     isDeleted: { type: Boolean, default: false },
 }, { timestamps: true });
-exports.Service = (0, mongoose_1.model)('Service', serviceSchema);
+exports.Service = (0, mongoose_1.model)('service', serviceSchema);
