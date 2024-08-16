@@ -8,5 +8,5 @@ const SlotSchema = new mongoose_1.Schema({
     endTime: { type: String, required: true },
     isBooked: { type: String, enum: ["available", "booked"], default: "available" },
 }, { timestamps: true });
-const SlotModel = (0, mongoose_1.model)("Slot", SlotSchema);
+const SlotModel = (0, mongoose_1.model)("slot", SlotSchema);
 exports.default = SlotModel;

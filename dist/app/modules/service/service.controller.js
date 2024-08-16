@@ -29,6 +29,11 @@ const createService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
 const getSingleService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const result = yield service_serviece_1.serviceServices.getSingleServiceFromDB(id);
+    if (!result) {
+        return res
+            .status(http_status_1.default.NOT_FOUND)
+            .json({ success: false, message: "Service not found" });
+    }
     (0, sensResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
@@ -38,6 +43,14 @@ const getSingleService = (0, catchAsync_1.default)((req, res) => __awaiter(void 
 }));
 const getAllService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield service_serviece_1.serviceServices.getAllServiceFromDB();
+    if (result.length < 1) {
+        (0, sensResponse_1.default)(res, {
+            success: true,
+            statusCode: http_status_1.default.NOT_FOUND,
+            message: "Service not Found",
+            data: result,
+        });
+    }
     (0, sensResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
@@ -52,6 +65,16 @@ const updateService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Service is created succesfully",
+        data: result,
+    });
+}));
+const deleteService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield service_serviece_1.serviceServices.deleteServiceFromDB(id);
+    (0, sensResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Service deleted successfully",
         data: result,
     });
 }));
@@ -76,5 +99,6 @@ exports.serviceController = {
     getSingleService,
     getAllService,
     updateService,
-    createSlot
+    createSlot,
+    deleteService
 };

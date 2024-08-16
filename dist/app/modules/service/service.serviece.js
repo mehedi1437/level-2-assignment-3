@@ -33,7 +33,17 @@ const updateServiceIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, f
     });
     return result;
 });
-// ! create slot 
+const deleteServiceFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const service = yield service_model_1.Service.findById(id);
+    if (!service) {
+        throw new Error("Service not found");
+    }
+    const result = yield service_model_1.Service.findOneAndUpdate({ _id: id }, { isDeleted: true }, {
+        new: true,
+    });
+    return result;
+});
+// ! create slot
 const createSlotIntoDB = (_a) => __awaiter(void 0, [_a], void 0, function* ({ service, date, startTime, endTime, }) {
     // Convert startTime and endTime to minutes
     const startMinutes = parseInt(startTime.split(":")[0]) * 60 + parseInt(startTime.split(":")[1]);
@@ -68,5 +78,6 @@ exports.serviceServices = {
     getSingleServiceFromDB,
     getAllServiceFromDB,
     updateServiceIntoDB,
-    createSlotIntoDB
+    createSlotIntoDB,
+    deleteServiceFromDB
 };
