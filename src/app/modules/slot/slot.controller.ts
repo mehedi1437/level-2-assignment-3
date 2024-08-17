@@ -13,7 +13,7 @@ const getAvaliableSlots = catchAsync(async (req, res) => {
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.NOT_FOUND,
-      message: "slots not available",
+      message: "No Data Found",
       data: result,
     });
   }

@@ -19,7 +19,7 @@ const getSingleService = catchAsync(async (req, res) => {
   if (!result) {
     return res
       .status(httpStatus.NOT_FOUND)
-      .json({ success: false, message: "Service not found" });
+      .json({ success: false, message: "No Data Found" });
   }
 
   sendResponse(res, {
@@ -35,7 +35,7 @@ const getAllService = catchAsync(async (req, res) => {
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.NOT_FOUND,
-      message: "Service not Found",
+      message: 'No Data Found',
       data: result,
     });
   }
